@@ -9,16 +9,11 @@
 
 #include <iostream>
 
-Map map( 4, 4 );
-
-std::ostream& operator<<( std::ostream& s, const Hex& hex )
-{
-	return s << '[' << hex.x << ',' << hex.y << ']';
-}
+Map<4,4> map;
 
 int main( int argc, char* argv[] )
 {
-	const Hex& o = map.HexAt( 2, 1 );
+	const Hex& o = map.At( 2, 1 );
 	std::cout << "ORIGIN:" << o << ' ';
 
 	Hex& n = map.Move( o, North );
