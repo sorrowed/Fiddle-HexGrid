@@ -12,9 +12,11 @@ enum Direction
 {
 	North = 0,
 	NorthWest,
+	West,
 	SouthWest,
 	South,
 	SouthEast,
+	East,
 	NorthEast
 };
 

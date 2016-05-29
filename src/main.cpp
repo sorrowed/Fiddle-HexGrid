@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-Map<4,4> map;
+Map<4,4> map( Orientation::Flat );
 
 int main( int argc, char* argv[] )
 {

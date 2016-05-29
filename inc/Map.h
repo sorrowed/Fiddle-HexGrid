@@ -11,13 +11,17 @@
 #include "Hex.h"
 #include "Direction.h"
 
-#include <array>
+enum Orientation
+{
+	Flat = 0,
+	Pointed
+};
 
 template<int W,int H>
 class Map
 {
 public:
-	Map() : width( W ), height( H ), hexes()
+	Map( Orientation o ) : width( W ), height( H ), orientation( o ), hexes()
 	{
 		for( int y = 0; y < height; ++y )
 		{
@@ -42,20 +46,21 @@ public:
 
 	Hex& At( int x, int y )
 	{
-		return operator[]( IndexOf( x, y ) );
+		return (*this)[ IndexOf( x, y ) ];
 	}
 
 private:
 
-	int width;
-	int height;
+	const int width;
+	const int height;
+	const Orientation orientation;
 
 	int IndexOf( int x, int y ) const
 	{
 		return y * width + x;
 	}
 
-	std::array<Hex, W * H > hexes;
+	Hex hexes[ W * H ];
 };
 
 template<int W,int H>
@@ -63,16 +68,30 @@ Hex& Map<W,H>::Move( const Hex& hex, Direction dir )
 {
 	switch( dir )
 	{
-		case North:
-			if( hex.y > 0 )
+		case North:	// Flat orientation only
+			if( orientation == Orientation::Flat && hex.y > 0 )
 				return At( hex.x, hex.y - 1 );
 			else
 				return At( hex.x, hex.y );
 			break;
 
-		case South:
-			if( hex.y < height - 1 )
+		case South:	// Flat orientation only
+			if( orientation == Orientation::Flat && hex.y < height - 1 )
 				return At( hex.x, hex.y + 1 );
+			else
+				return At( hex.x, hex.y );
+			break;
+
+		case East:	// Pointed orientation only
+			if( orientation == Orientation::Pointed && hex.x < width - 1 )
+				return At( hex.x + 1, hex.y );
+			else
+				return At( hex.x, hex.y );
+			break;
+
+		case West: 	// Pointed orientation only
+			if( orientation == Orientation::Pointed && hex.x > 0 )
+				return At( hex.x - 1, hex.y );
 			else
 				return At( hex.x, hex.y );
 			break;
