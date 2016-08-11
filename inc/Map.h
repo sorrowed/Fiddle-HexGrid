@@ -11,17 +11,18 @@
 #include "Hex.h"
 #include "Direction.h"
 
+#include <valarray>
+
 enum Orientation
 {
 	Flat = 0,
 	Pointed
 };
 
-template<int W,int H>
 class Map
 {
 public:
-	Map( Orientation o ) : width( W ), height( H ), orientation( o ), hexes()
+	Map( int w, int h, Orientation o ) : width( w ), height( h ), orientation( o ), hexes( w * h )
 	{
 		for( int y = 0; y < height; ++y )
 		{
@@ -60,85 +61,7 @@ private:
 		return y * width + x;
 	}
 
-	Hex hexes[ W * H ];
+	std::valarray<Hex> hexes;
 };
-
-template<int W,int H>
-Hex& Map<W,H>::Move( const Hex& hex, Direction dir )
-{
-	switch( dir )
-	{
-		case North:	// Flat orientation only
-			if( orientation == Orientation::Flat && hex.y > 0 )
-				return At( hex.x, hex.y - 1 );
-			else
-				return At( hex.x, hex.y );
-			break;
-
-		case South:	// Flat orientation only
-			if( orientation == Orientation::Flat && hex.y < height - 1 )
-				return At( hex.x, hex.y + 1 );
-			else
-				return At( hex.x, hex.y );
-			break;
-
-		case East:	// Pointed orientation only
-			if( orientation == Orientation::Pointed && hex.x < width - 1 )
-				return At( hex.x + 1, hex.y );
-			else
-				return At( hex.x, hex.y );
-			break;
-
-		case West: 	// Pointed orientation only
-			if( orientation == Orientation::Pointed && hex.x > 0 )
-				return At( hex.x - 1, hex.y );
-			else
-				return At( hex.x, hex.y );
-			break;
-
-		case NorthWest:
-		{
-			int y = hex.x % 2 ? hex.y : hex.y - 1;
-			if( hex.x > 0 && y >= 0 )
-				return At( hex.x - 1, y );
-			else
-				return At( hex.x, hex.y );
-			break;
-		}
-
-		case SouthWest:
-		{
-			int y = hex.x % 2 ? hex.y + 1: hex.y;
-			if( hex.x > 0 && y < height )
-				return At( hex.x - 1, y );
-			else
-				return At( hex.x, hex.y );
-			break;
-		}
-
-		case NorthEast:
-		{
-			int y = hex.x % 2 ? hex.y : hex.y - 1;
-			if( hex.x < width - 1 && y >= 0 )
-				return At( hex.x + 1, y );
-			else
-				return At( hex.x, hex.y );
-			break;
-		}
-
-		case SouthEast:
-		{
-			int y = hex.x % 2 ? hex.y + 1: hex.y;
-			if( hex.x < width - 1 && y < height )
-				return At( hex.x + 1, y );
-			else
-				return At( hex.x, hex.y );
-			break;
-		}
-
-		default:
-			return At( hex.x, hex.y );
-	}
-}
 
 #endif /* MAP_H_ */

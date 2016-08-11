@@ -9,28 +9,25 @@
 
 #include <iostream>
 
-Map<4,4> map( Orientation::Flat );
+Map map( 4, 4, Orientation::Flat );
 
 int main( int argc, char* argv[] )
 {
 	const Hex& o = map.At( 2, 1 );
-	std::cout << "ORIGIN:" << o << ' ';
+	std::cout << "ORIGIN:" << o << '\n';
 
 	Hex& n = map.Move( o, North );
-	std::cout << "N:" << n << ' ';
+	std::cout << "N:" << n << '\n';
 	Hex& nw = map.Move( o, NorthWest );
-	std::cout << "NW:" << nw << ' ';
+	std::cout << "NW:" << nw << '\n';
 	Hex& sw = map.Move( o, SouthWest );
-	std::cout << "SW:" << sw << ' ';
+	std::cout << "SW:" << sw << '\n';
 	Hex& s = map.Move( o, South );
-	std::cout << "S:" << s << ' ';
+	std::cout << "S:" << s << '\n';
 	Hex& ne = map.Move( o, NorthEast );
-	std::cout << "NE:" << ne << ' ';
+	std::cout << "NE:" << ne << '\n';
 	Hex& se = map.Move( o, SouthEast );
 	std::cout << "SE:" << se << '\n';
 
 	return 0;
 }
-
-
-
