@@ -14,11 +14,12 @@ struct Hex
 {
 	int x;
 	int y;
+	int z;
 
-	Hex() : Hex( -1, -1 ) {}
+	Hex() : Hex( -1, -1, 0 ) {}
 
-	Hex( int x, int y ) :
-			x(x), y(y)
+	Hex( int x, int y, int z ) :
+			x(x), y(y), z(z)
 	{}
 };
 

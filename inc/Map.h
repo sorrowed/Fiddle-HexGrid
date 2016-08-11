@@ -13,7 +13,7 @@
 
 #include <valarray>
 
-enum Orientation
+enum MapOrientation
 {
 	Flat = 0,
 	Pointed
@@ -22,11 +22,12 @@ enum Orientation
 class Map
 {
 public:
-	Map( int w, int h, Orientation o ) : width( w ), height( h ), orientation( o ), hexes( w * h )
+	Map( int width, int height, MapOrientation orientation ) :
+		Width( width ), Height( height ), Orientation( orientation ), hexes( width * height )
 	{
-		for( int y = 0; y < height; ++y )
+		for( int y = 0; y < Height; ++y )
 		{
-			for( int x = 0; x < width; ++x )
+			for( int x = 0; x < Width; ++x )
 			{
 				Hex& h = At( x, y );
 				h.x = x;
@@ -50,15 +51,16 @@ public:
 		return (*this)[ IndexOf( x, y ) ];
 	}
 
+	const int Width;
+	const int Height;
+	const MapOrientation Orientation;
+
 private:
 
-	const int width;
-	const int height;
-	const Orientation orientation;
 
 	int IndexOf( int x, int y ) const
 	{
-		return y * width + x;
+		return ( y * Width ) + x;
 	}
 
 	std::valarray<Hex> hexes;

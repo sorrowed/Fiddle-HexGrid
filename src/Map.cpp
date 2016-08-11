@@ -12,23 +12,23 @@ Hex& Map::Move( const Hex& hex, Direction dir )
 
 	switch( dir )
 	{
-		case North:	// Flat orientation only
-			if( orientation == Orientation::Flat && hex.y > 0 )
+		case North:	// Flat Orientation only
+			if( Orientation == MapOrientation::Flat && hex.y > 0 )
 				y -= 1;
 			break;
 
-		case South:	// Flat orientation only
-			if( orientation == Orientation::Flat && hex.y < height - 1 )
+		case South:	// Flat Orientation only
+			if( Orientation == MapOrientation::Flat && hex.y < Height - 1 )
 				y += 1;
 			break;
 
-		case East:	// Pointed orientation only
-			if( orientation == Orientation::Pointed && hex.x < width - 1 )
+		case East:	// Pointed Orientation only
+			if( Orientation == MapOrientation::Pointed && hex.x < Width - 1 )
 				x += 1;
 			break;
 
-		case West: 	// Pointed orientation only
-			if( orientation == Orientation::Pointed && hex.x > 0 )
+		case West: 	// Pointed Orientation only
+			if( Orientation == MapOrientation::Pointed && hex.x > 0 )
 				x -= 1;
 			break;
 
@@ -43,7 +43,7 @@ Hex& Map::Move( const Hex& hex, Direction dir )
 		case SouthWest:
 		{
 			int ny = hex.x % 2 ? hex.y + 1: hex.y;
-			if( hex.x > 0 && ny < height )
+			if( hex.x > 0 && ny < Height )
 				x -= 1, y = ny;
 			break;
 		}
@@ -51,7 +51,7 @@ Hex& Map::Move( const Hex& hex, Direction dir )
 		case NorthEast:
 		{
 			int ny = hex.x % 2 ? hex.y : hex.y - 1;
-			if( hex.x < width - 1 && ny >= 0 )
+			if( hex.x < Width - 1 && ny >= 0 )
 				x += 1, y = ny;
 			break;
 		}
@@ -59,7 +59,7 @@ Hex& Map::Move( const Hex& hex, Direction dir )
 		case SouthEast:
 		{
 			int ny = hex.x % 2 ? hex.y + 1: hex.y;
-			if( hex.x < width - 1 && ny < height )
+			if( hex.x < Width - 1 && ny < Height )
 				x += 1, y = ny;
 			break;
 		}
