@@ -15,21 +15,20 @@
 
 enum MapOrientation
 {
-	Flat = 0,
-	Pointed
+	Flat = 0, Pointed
 };
 
 class Map
 {
 public:
-	Map( int width, int height, MapOrientation orientation ) :
-		Width( width ), Height( height ), Orientation( orientation ), hexes( width * height )
+	Map( int width, int height, MapOrientation orientation) :
+		Width( width ), Height( height ), Orientation( orientation ), _hexes( width * height )
 	{
 		for( int y = 0; y < Height; ++y )
 		{
 			for( int x = 0; x < Width; ++x )
 			{
-				Hex& h = At( x, y );
+				Hex& h = ( *this )( x, y );
 				h.x = x;
 				h.y = y;
 			}
@@ -37,18 +36,16 @@ public:
 
 	}
 
-	Hex& Move( const Hex& hex, Direction dir );
+	Hex& Move( const Hex& hex, Direction dir);
 
-	const Hex& Origin () { return At( 0, 0 ); }
-
-	Hex& operator[]( int index )
+	Hex& operator[]( int index)
 	{
-		return hexes[ index ];
+		return _hexes[ index ];
 	}
 
-	Hex& At( int x, int y )
+	Hex& operator()( int x, int y)
 	{
-		return (*this)[ IndexOf( x, y ) ];
+		return ( *this )[ IndexOf( x, y ) ];
 	}
 
 	const int Width;
@@ -57,13 +54,12 @@ public:
 
 private:
 
-
-	int IndexOf( int x, int y ) const
+	int IndexOf( int x, int y) const
 	{
 		return ( y * Width ) + x;
 	}
 
-	std::valarray<Hex> hexes;
+	std::valarray<Hex> _hexes;
 };
 
 #endif /* MAP_H_ */

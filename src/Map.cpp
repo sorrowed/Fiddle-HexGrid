@@ -68,5 +68,5 @@ Hex& Map::Move( const Hex& hex, Direction dir )
 			break;
 	}
 
-	return At( x, y );
+	return (*this)( x, y );
 }
