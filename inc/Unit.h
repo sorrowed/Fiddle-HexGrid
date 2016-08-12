@@ -14,15 +14,15 @@
 class Unit
 {
 public:
-	Unit( Map& map, Hex& location );
+	Unit( Map& map, Hex* location );
 	virtual ~Unit();
 
 	void Move( Direction direction );
 
-	const Hex& Location() const { return _location; }
+	const Hex* Location() const { return _location; }
 private:
 	Map& _map;
-	Hex& _location;
+	Hex* _location;
 };
 
 #endif /* UNIT_H_ */

@@ -7,7 +7,7 @@
 
 #include <Unit.h>
 
-Unit::Unit( Map& map, Hex& location ):
+Unit::Unit( Map& map, Hex* location ):
 	_map( map ), _location( location )
 {
 }
