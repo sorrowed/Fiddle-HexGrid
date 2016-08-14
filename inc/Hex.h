@@ -21,6 +21,11 @@ struct Hex
 	Hex( int x, int y, int z ) :
 			x(x), y(y), z(z)
 	{}
+
+	bool operator==( const Hex& b ) const
+	{
+		return x == b.x && y == b.y && z == b.z;
+	}
 };
 
 std::ostream& operator<<( std::ostream& s, const Hex& hex );

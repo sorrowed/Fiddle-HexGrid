@@ -28,9 +28,9 @@ public:
 		{
 			for( int x = 0; x < Width; ++x )
 			{
-				Hex* h = ( *this )( x, y );
-				h->x = x;
-				h->y = y;
+				Hex& h = ( *this )( x, y );
+				h.x = x;
+				h.y = y;
 			}
 		}
 
@@ -38,12 +38,12 @@ public:
 
 	Hex* Move( const Hex* hex, Direction dir);
 
-	Hex* operator[]( int index)
+	Hex& operator[]( int index)
 	{
-		return &_hexes[ index ];
+		return _hexes[ index ];
 	}
 
-	Hex* operator()( int x, int y)
+	Hex& operator()( int x, int y)
 	{
 		return ( *this )[ IndexOf( x, y ) ];
 	}
