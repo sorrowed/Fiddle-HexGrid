@@ -5,16 +5,15 @@
  *      Author: tom
  */
 
+#include <Test.h>
 #include "Map.h"
 #include "Unit.h"
 
 #include <iostream>
 
-#include "UnitTest++/UnitTest++.h"
 
 int main( int, const char *[] )
 {
-	return UnitTest::RunAllTests();
+	return Tests::All();
 }
-
 
